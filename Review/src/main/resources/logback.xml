@@ -1,0 +1,17 @@
+<configuration>
+    <property name="pattern" value="%d{HH:mm:ss} [%thread] [%method] [line:%line] %-5level %msg%n"/>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoders are assigned the type
+             ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+        <!--输出流对象 默认 System.out 改为 System.err-->
+        <target>System.err</target>
+        <encoder>
+            <pattern>${pattern}</pattern>
+        </encoder>
+    </appender>
+
+    <root level="debug">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+</configuration>

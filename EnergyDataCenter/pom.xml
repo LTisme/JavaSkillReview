@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>JavaSkill</artifactId>
+        <groupId>org.example</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <!--坐标-->
+    <artifactId>EnergyDataCenter</artifactId>
+    <packaging>pom</packaging>
+
+    <!--一些依赖版本号等属性的设置-->
+    <properties>
+        <junit.version>4.13.2</junit.version>
+        <maven.compiler-plugins.version>3.1</maven.compiler-plugins.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <!--依赖，如果是Maven父工程最好用dependencyManagement标签，这样子工程就可以按需引包-->
+    <dependencies>
+        <dependency>
+            <!--测试用的junit-->
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <!--构建-->
+    <build>
+        <finalName>${pom.artifactId}</finalName>
+        <!--标注资源文件目录-->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+        </resources>
+
+        <!--必须要用的插件，比如maven的编译插件-->
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler-plugins.version}</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source> <!-- 源代码使用的JDK版本 -->
+                    <target>${maven.compiler.target}</target> <!-- 需要生成的目标class文件的编译版本 -->
+                    <encoding>${project.build.sourceEncoding}</encoding><!-- 字符集编码 -->
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <!--profiles一般用于多环境，当然，单环境也可以先加上，日后就可以少改动-->
+    <profiles>
+        <profile>
+            <id>Alibaba</id>
+            <repositories>
+                <repository>
+                    <!--仓库 id，repositories 可以配置多个仓库，保证 id 不重复-->
+                    <id>aliyunmaven</id>
+                    <!--仓库地址，当然可以配私有仓库地址-->
+                    <url>https://maven.aliyun.com/repository/public</url>
+                    <!--是否下载 releases 构件-->
+                    <releases>
+                    </releases>
+                </repository>
+            </repositories>
+        </profile>
+    </profiles>
+</project>
